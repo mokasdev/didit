@@ -72,7 +72,11 @@ test('fail-fast does not execute later checks and ad-hoc passes do not satisfy p
   assert.equal(run('report', '--require', 'lint').status, 0);
   const gated = run('report', '--profile', 'quick', '--format', 'json');
   assert.equal(gated.status, 1);
-  assert.deepEqual(JSON.parse(gated.stdout).missingRequired, ['lint']);
+  const parsed = JSON.parse(gated.stdout);
+  assert.deepEqual(parsed.missingRequired, ['lint']);
+  assert.match(parsed.checks.find(check => check.id === 'lint').gateReason, /current project configuration/);
+  assert.match(run('report', '--profile', 'quick').stdout, /Not run using the current project configuration/);
+  assert.match(run('report', '--profile', 'quick', '--format', 'junit').stdout, /Not run using the current project configuration/);
   assert.equal(run('check', '--profile', 'quick').status, 0);
   assert.equal(run('report', '--profile', 'quick').status, 0);
 });

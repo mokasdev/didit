@@ -22,6 +22,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "verify": "node bin/didit.mjs check --profile default",
+    "smoke:pack": "node scripts/smoke-pack.mjs"
   }
 }
