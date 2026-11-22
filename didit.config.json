@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "checks": {
+    "test": {
+      "command": [
+        "node",
+        "--test"
+      ]
+    },
+    "package": {
+      "command": [
+        "npm",
+        "run",
+        "smoke:pack"
+      ],
+      "windows": [
+        "cmd.exe",
+        "/d",
+        "/c",
+        "npm run smoke:pack"
+      ]
+    }
+  },
+  "profiles": {
+    "default": [
+      "test",
+      "package"
+    ],
+    "quick": [
+      "test"
+    ]
+  }
+}

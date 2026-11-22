@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  test:
+  verify:
     parameters:
       node:
         type: string
@@ -8,11 +8,29 @@ jobs:
       - image: cimg/node:<< parameters.node >>
     steps:
       - checkout
-      - run: npm test
+      - run:
+          name: Verify source and installed package
+          command: npm run verify
+      - run:
+          name: Generate verification receipts
+          when: always
+          command: |
+            mkdir -p /tmp/didit-ci/junit /tmp/didit-ci/reports
+            status=0
+            node bin/didit.mjs report --profile default --format junit > /tmp/didit-ci/junit/receipt.xml || status=$?
+            node bin/didit.mjs report --profile default --format json > /tmp/didit-ci/reports/receipt.json || status=$?
+            node bin/didit.mjs report --profile default > /tmp/didit-ci/reports/receipt.md || status=$?
+            exit "$status"
+      - store_test_results:
+          path: /tmp/didit-ci/junit
+      - store_artifacts:
+          path: /tmp/didit-ci/reports
+          destination: verification
 workflows:
   verify:
     jobs:
-      - test:
+      - verify:
+          name: verify-node-<< matrix.node >>
           matrix:
             parameters:
-              node: ["22.0", "24.0"]
+              node: ["22.22.0", "24.15.0"]

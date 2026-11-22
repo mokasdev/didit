@@ -183,6 +183,7 @@ function markdown({ snapshot: current, checks, missingRequired }) {
     else if (check.status === 'stale') status = 'Stale — working tree changed since recording';
     else if (check.source === 'manual') status = 'Manually reported ' + check.status + ' (not independently verified)';
     else status = (check.status === 'passed' ? 'Passed' : 'Failed') + ' (exit ' + check.exitCode + ')';
+    if (check.gateReason) status += ' · ' + check.gateReason;
     if (check.durationMs !== null && check.durationMs !== undefined) status += ' · ' + check.durationMs + ' ms';
     if (check.ref) status += ' · ' + String.fromCharCode(96) + check.ref + String.fromCharCode(96);
     lines.push('| ' + check.label + ' | ' + status + ' |');
@@ -205,8 +206,15 @@ async function report(gitDir, current, { format, required, configFingerprint }) 
     fingerprints.set(id, receipt?.configFingerprint);
     return row(id, receipt, current);
   }));
+  const requiredIds = new Set(required);
+  for (const check of checks) {
+    if (configFingerprint && requiredIds.has(check.id) && check.status === 'passed'
+      && (check.origin !== 'project' || fingerprints.get(check.id) !== configFingerprint)) {
+      check.gateReason = 'Not run using the current project configuration';
+    }
+  }
   const missingRequired = required.filter(id => !checks.some(check => check.id === id
-    && check.status === 'passed' && check.source === 'command' && (!configFingerprint || (check.origin === 'project' && fingerprints.get(check.id) === configFingerprint))));
+    && check.status === 'passed' && check.source === 'command' && !check.gateReason));
   const output = { schemaVersion: 1, snapshot: current, checks, missingRequired };
   console.log(format === 'json' ? JSON.stringify(output, null, 2) : format === 'junit' ? junit(output, required) : markdown(output));
   return missingRequired.length ? 1 : 0;

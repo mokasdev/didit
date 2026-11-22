@@ -86,7 +86,7 @@ export function junit({ checks, missingRequired }, required) {
     const failed = missing.has(check.id) || (check.source === 'command' && check.status === 'failed');
     const skipped = !failed && (check.source !== 'command' || check.status !== 'passed');
     const detail = failed
-      ? '<failure message="' + esc(missing.has(check.id) ? 'Required command check did not pass: ' + check.status : 'Exit ' + check.exitCode) + '" />'
+      ? '<failure message="' + esc(check.gateReason ?? (missing.has(check.id) ? 'Required command check did not pass: ' + check.status : 'Exit ' + check.exitCode)) + '" />'
       : skipped ? '<skipped message="' + esc(check.source === 'manual' ? 'Manual evidence' : check.status) + '" />' : '';
     return { failed, skipped, xml: '  <testcase classname="didit" name="' + esc(check.id) + '" time="' + time + '">' + detail + '</testcase>' };
   });

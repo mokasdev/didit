@@ -63,6 +63,8 @@ Use `--only syntax,test` to select checks, `--dry-run` to preview, and `--fail-f
 <a id="ci"></a>
 ## CI and reports
 
+See the [CircleCI setup guide](docs/CIRCLECI.md) for a pinned install and a copyable job snippet.
+
 Use **Markdown** for a PR, **JSON** for scripts, or **JUnit XML** for a CI test-results collector such as CircleCI. Keep report files outside the checkout or in an ignored directory so they don’t change the snapshot. A failed profile gate exits `1`; it still emits the report.
 
 ```sh
