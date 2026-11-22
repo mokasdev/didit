@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 112" role="img" aria-labelledby="title">
+  <title id="title">didit verification receipt</title>
+  <rect x="2" y="2" width="156" height="108" rx="28" fill="#11192b" stroke="#384661" stroke-width="2"/>
+  <path d="M52 27h56v61l-7-5-7 5-7-5-7 5-7-5-7 5-7-5-7 5z" fill="#ecf5ff"/>
+  <path d="M64 40h32M64 48h18M64 77h16" fill="none" stroke="#859db8" stroke-width="3" stroke-linecap="round"/>
+  <path d="m69 61 8 8 16-16" fill="none" stroke="#047857" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="33" cy="39" r="2.5" fill="#52e6ac"/><circle cx="128" cy="74" r="2.5" fill="#79a9f9"/>
+</svg>

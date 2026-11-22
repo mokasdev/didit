@@ -1,0 +1,18 @@
+version: 2.1
+jobs:
+  test:
+    parameters:
+      node:
+        type: string
+    docker:
+      - image: cimg/node:<< parameters.node >>
+    steps:
+      - checkout
+      - run: npm test
+workflows:
+  verify:
+    jobs:
+      - test:
+          matrix:
+            parameters:
+              node: ["22.0", "24.0"]

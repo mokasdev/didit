@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "checks": {
+    "syntax": {
+      "command": [
+        "node",
+        "--check",
+        "bin/didit.mjs"
+      ]
+    },
+    "test": {
+      "command": [
+        "node",
+        "--test"
+      ]
+    },
+    "package": {
+      "command": [
+        "npm",
+        "pack",
+        "--dry-run"
+      ],
+      "windows": [
+        "cmd.exe",
+        "/d",
+        "/c",
+        "npm pack --dry-run"
+      ]
+    }
+  },
+  "profiles": {
+    "default": [
+      "syntax",
+      "test"
+    ],
+    "quick": [
+      "syntax"
+    ],
+    "release": [
+      "syntax",
+      "test",
+      "package"
+    ]
+  }
+}

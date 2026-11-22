@@ -1,0 +1,25 @@
+name: Bug report
+description: Report reproducible or incorrect didit behavior
+title: "[Bug]: "
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Environment
+      description: Include didit, Node.js and Git versions, OS, and shell.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include the exact command and minimal config. Redact credentials and private paths.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected and actual behavior
+      description: Include the exit code and relevant report output.
+    validations:
+      required: true

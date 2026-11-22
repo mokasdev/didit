@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest a workflow improvement
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Workflow and problem
+      description: What are you doing now, and where does didit fall short?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Give an example command or report if helpful.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: What workarounds have you tried?

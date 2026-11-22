@@ -1,0 +1,27 @@
+{
+  "name": "@mokasdev/didit",
+  "version": "0.1.0",
+  "description": "Git-bound verification receipts for AI-assisted coding and CI.",
+  "keywords": ["cli", "git", "verification", "ci", "coding-agents"],
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "repository": { "type": "git", "url": "git+https://github.com/mokasdev/didit.git" },
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "didit": "bin/didit.mjs"
+  },
+  "files": [
+    "bin",
+    "examples",
+    "docs",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
